@@ -2,6 +2,7 @@ execute pathogen#infect()
 set nocompatible
 syntax on
 
+set clipboard=unnamed
 set ruler      " show the cursor position at all time
 set number
 set showcmd    " show incomplete commands
@@ -15,6 +16,9 @@ set expandtab
 
 set autoindent
 set paste       " ignore tabs when I paste stuff as to not mess up indentation
+
+set foldmethod=indent
+set nofoldenable
 
 " Enable mouse
 " set mouse=a
@@ -40,3 +44,13 @@ function! <SID>StripTrailingWhitespaces()
 endfun
 
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+let g:syntastic_javascript_checkers = ['eslint']
